@@ -3,7 +3,6 @@ package tech.michaeloverman.draganddraw;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -31,7 +30,7 @@ public class BoxDrawingView extends View {
 
     // Used when inflating the view from XML
     public BoxDrawingView(Context context, AttributeSet attrs) {
-        super(context)
+        super(context);
         mBoxPaint = new Paint();
         mBoxPaint.setColor(0x22ff0000);
 
@@ -67,7 +66,7 @@ public class BoxDrawingView extends View {
                 action = "ACTION_CANCEL";
                 mCurrentBox = null;
                 break;
-
+        }
 
         Log.i(TAG, action + " at x=" + current.x + ", y=" + current.y);
 
@@ -76,16 +75,17 @@ public class BoxDrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //Fill the background
+        // Fill the background
         canvas.drawPaint(mBackgroundPaint);
 
         for (Box box : mBoxen) {
             float left = Math.min(box.getOrigin().x, box.getCurrent().x);
             float right = Math.max(box.getOrigin().x, box.getCurrent().x);
-            float top  = Math.min(box.getOrigin().y, box.getCurrent().y);
-            float bottom  = Math.min(box.getOrigin().y, box.getCurrent().y);
+            float top = Math.min(box.getOrigin().y, box.getCurrent().y);
+            float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
 
             canvas.drawRect(left, top, right, bottom, mBoxPaint);
         }
     }
+
 }
